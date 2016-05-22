@@ -1,5 +1,13 @@
 # rsnapshot (master) [![Build Status](https://travis-ci.org/osiell/ansible-rsnapshot-master.png)](https://travis-ci.org/osiell/ansible-rsnapshot-master)
 
+## Possible Roadmap
+
+* add configurable rsnapshot user with specific powers.
+* give passwordless sudo?
+* /mnt/rsnapshots
+
+## Description
+
 Ansible role to install and configure a *rsnapshot* master. It works in
 conjunction with the `rsnapshot-slave` role.
 
@@ -22,7 +30,8 @@ Minimum Ansible Version: 1.4
 ## Example (Playbook)
 
 ```yaml
-- name: Backup Master
+
+- name: rsnapshot backup server
   hosts: backup_master
   sudo: yes
   roles:
