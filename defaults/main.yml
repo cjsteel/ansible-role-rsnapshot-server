@@ -1,7 +1,23 @@
 ---
 
-# SSH key for the 'root' user, the public one should be set on remote
+# Should we enable the use of dependancies listed our in meta/main.yml?
+#
+rsnapshot_dependancies: True
+
+# User that runs the snapshots (frequently root)
+#
+rsnapshot_user: root
+rsnapshot_user_id: 0
+
+# The group(s) (frequently root)
+#
+rsnapshot_group: "{{ rsnapshot_user }}"
+rsnapshot_group_id: 0
+rsnapshot_groups: "{{ rsnapshot_group }}" # [ '{{ rsnapshot_group }}, "admin" ]
+
+# Private SSH key for {{ rsnapshot_user }} the public one should be set on remote
 # servers to backup (see the role 'rsnapshot-slave')
+#
 rsnapshot_ssh_key: id_rsa
 
 # rsnapshot options

@@ -18,4 +18,63 @@ galaxy_info:
         - trusty
   categories:
     - system
-dependencies: []
+# dependencies: []
+dependencies:
+
+  - role: bootstrap
+    bootstrap_admin_name: ansible
+
+    # put users own home group first as bootstrap_admin_home_group: '{{ bootstrap_admin_groups[0] }}'
+    bootstrap_admin_groups:  [ "ansible", "admins", "staff", "adm" ]
+
+    bootstrap_admin_home_mode: '0750'
+
+    bootstrap_admin_comment: 'Ansible Controller'
+
+    bootstrap_sudo: True
+
+    ## bootstrap_sudo_group
+    #
+    # passwordless sudo access group.
+
+    bootstrap_sudo_group: '{{ bootstrap_admin_groups[0] | default("") }}'
+    
+#  - role: users
+
+#    users_groups:
+#      - name: "{{ rsnapshot_groups }}"
+#      - name: "{{ rsnapshot_group }}"
+#        gid: "{{ rsnapshot_group_id }}"      # (Optional)
+#        system: no                           # (Optional)
+
+#    users_users:
+#      - name: "{{ rsnapshot_user }}"
+#        uid: "{{ rsnapshot_user_id }}"       # (Optional)
+#        groups: []
+#        groups: "{{ rsnapshot_groups }}"
+
+#        ssh_keys:           # Keys to add to authorized_keys
+#          - "ssh-dss ......."
+#          - "ssh-dss ......."
+#        append: "no"                        # (Optional) append groups rather than setting to the list of groups.
+#        pass: "$6$...."                     # (Optional) Set the user's password to this crypted value.
+#        comment: "foo acc"                  # (Optional)
+#        shell: "/bin/bash"                  # (Optional) Set the user's shell.
+#        home: "/home/"{{ rsnapshot_user }}" # (Optional) Set the user's home directory.
+#        system: no                          # (Optional) Make the user a system account or not.
+
+#    when: rsnapshot_dependencies | bool
+
+  - role: sudo
+
+    sudo_defaults:
+      - defaults: env_reset
+#     - name: user1
+#       defaults: requiretty
+    sudo_users:
+#      - name: '%group1'
+      - name: '{{ rsnapshot_user }}'
+        nopasswd: yes
+#      - name: '%group2'
+#    commands: '/bin/ls'
+#

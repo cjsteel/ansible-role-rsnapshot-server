@@ -1,7 +1,7 @@
 ---
 
 - name: Create a SSH key for 'root'
-  user: name=root
+  user: name='{{ rsnapshot_user }}'
         generate_ssh_key=yes
         ssh_key_file=.ssh/{{ rsnapshot_ssh_key }}
   when: rsnapshot_ssh_key != False
