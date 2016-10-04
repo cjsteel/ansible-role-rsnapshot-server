@@ -3,8 +3,7 @@
 ## Possible Roadmap
 
 * add configurable rsnapshot user with specific powers.
-* give passwordless sudo?
-* /mnt/rsnapshots
+* mount remote resource to .rsnapshots dir
 
 ## Description
 
@@ -32,10 +31,10 @@ Minimum Ansible Version: 1.4
 ```yaml
 
 - name: rsnapshot backup server
-  hosts: backup_master
+  hosts: backup_server
   sudo: yes
   roles:
-    - rsnapshot-master
+    - rsnapshot-server
   vars:
     - rsnapshot_config_backup:
         - name: LOCALHOST
@@ -63,18 +62,18 @@ Minimum Ansible Version: 1.4
   hosts: remote_1:remote_2
   sudo: yes
   roles:
-    - rsnapshot-slave
+    - rsnapshot-client
   vars:
-    - rsnapshot_master_host: backup_master
+    - rsnapshot_master_host: backup_server
 ```
 
-See the `rsnapshot-slave` role for details about the slave configuration.
+See the `rsnapshot-client` role for details about the client configuration.
 
 ## Variables
 
 ```yaml
 # SSH key for the 'root' user, the public one should be set on remote
-# servers to backup (see the role 'rsnapshot-slave')
+# servers to backup (see the role 'rsnapshot-client')
 rsnapshot_ssh_key: id_rsa
 
 # rsnapshot options
